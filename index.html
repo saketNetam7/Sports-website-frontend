@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chhattisgarh Institute of Technology, Sports</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <span class="crest">CIT</span>
+      <h1>Chhattisgarh Institute of Technology, Sports</h1>
+      <button id="logout" class="btn ghost hidden" type="button">
+        Log out
+      </button>
+    </header>
+
+    <main>
+      <!-- PAGE 1: Student / Admin -->
+      <section id="pgHome" class="page">
+        <h2>Choose your section</h2>
+        <div class="choose">
+          <button class="role" type="button" data-role="student">
+            <span class="ic">🎓</span><b>Student</b
+            ><small>Register for sports and see the event calendar</small>
+          </button>
+          <button class="role" type="button" data-role="admin">
+            <span class="ic">🛡️</span><b>Admin</b
+            ><small>Add and manage sports events</small>
+          </button>
+        </div>
+      </section>
+
+      <!-- PAGE 2: Login with Gmail + OTP -->
+      <section id="pgLogin" class="page hidden">
+        <div class="card narrow">
+          <h2 id="loginTitle">Student sign in</h2>
+
+          <form id="emailForm" novalidate>
+            <label
+              >Gmail address
+              <input
+                type="email"
+                id="email"
+                placeholder="you@gmail.com"
+                autocomplete="email"
+              />
+            </label>
+            <button class="btn primary" type="submit">Send OTP</button>
+          </form>
+
+          <form id="otpForm" class="hidden" novalidate>
+            <p class="hint" id="otpInfo"></p>
+            <label
+              >Enter 6-digit OTP
+              <input
+                type="text"
+                id="otp"
+                inputmode="numeric"
+                maxlength="6"
+                placeholder="------"
+                autocomplete="one-time-code"
+              />
+            </label>
+            <div class="row">
+              <button class="btn primary" type="submit">
+                Verify and continue
+              </button>
+              <button class="btn ghost" type="button" id="changeEmail">
+                Change email
+              </button>
+            </div>
+          </form>
+
+          <p class="err" id="loginErr" role="alert"></p>
+        </div>
+      </section>
+
+      <!-- PAGE 3: Student details -->
+      <section id="pgDetails" class="page hidden">
+        <div class="card narrow">
+          <h2>Your details</h2>
+          <form id="detailsForm" novalidate>
+            <label
+              >Full name<input
+                type="text"
+                id="dName"
+                placeholder="e.g. Riya Sharma"
+                autocomplete="name"
+            /></label>
+            <label
+              >Department
+              <select id="dDept">
+                <option value="">Select department</option>
+                <option>Computer Science</option>
+                <option>Information Technology</option>
+                <option>Electronics and Communication</option>
+                <option>Electrical</option>
+                <option>Mechanical</option>
+                <option>Civil</option>
+              </select>
+            </label>
+            <label
+              >Year
+              <select id="dYear">
+                <option value="">Select year</option>
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
+              </select>
+            </label>
+            <button class="btn primary" type="submit">Submit</button>
+            <p class="err" id="detailsErr" role="alert"></p>
+          </form>
+        </div>
+      </section>
+
+      <!-- PAGE 4: Student Event / Sports tab -->
+      <section id="pgStudent" class="page hidden">
+        <h2 id="hello">Events and sports</h2>
+        <div class="tabs" role="tablist">
+          <button class="tab on" type="button" data-tab="tabCal">
+            Event calendar
+          </button>
+          <button class="tab" type="button" data-tab="tabReg">
+            Register for sports
+          </button>
+        </div>
+
+        <div id="tabCal" class="card">
+          <div class="cal" id="calStudent"></div>
+        </div>
+
+        <div id="tabReg" class="hidden">
+          <div class="grid2">
+            <div class="card">
+              <h3>Solo sports</h3>
+              <div id="soloList" class="chips"></div>
+              <button class="btn primary" type="button" id="regSolo">
+                Register for selected sports
+              </button>
+            </div>
+            <div class="card">
+              <h3>Group sports</h3>
+              <label
+                >Group name<input
+                  type="text"
+                  id="gName"
+                  placeholder="e.g. CSE Strikers"
+              /></label>
+              <label>Sport<select id="gSport"></select></label>
+              <p class="hint">You register as the group leader.</p>
+              <button class="btn primary" type="button" id="regGroup">
+                Register group
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <h3>My registrations</h3>
+            <ul id="myRegs" class="list"></ul>
+          </div>
+        </div>
+        <p class="err" id="regMsg" role="status"></p>
+      </section>
+
+      <!-- PAGE 5: Admin -->
+      <section id="pgAdmin" class="page hidden">
+        <h2>Admin: event calendar</h2>
+        <div class="card"><div class="cal" id="calAdmin"></div></div>
+
+        <div class="grid2">
+          <form id="eventForm" class="card" novalidate>
+            <h3>Add an event</h3>
+            <label
+              >Event name<input
+                type="text"
+                id="eName"
+                placeholder="e.g. Inter-department Cricket"
+            /></label>
+            <label>Event date<input type="date" id="eDate" /></label>
+            <label>Event time<input type="time" id="eTime" /></label>
+            <label>Sports<select id="eSport"></select></label>
+            <label
+              >Event description<textarea
+                id="eDesc"
+                rows="3"
+                placeholder="Venue, rules, team size..."
+              ></textarea>
+            </label>
+            <button class="btn primary" type="submit">Add to calendar</button>
+            <p class="err" id="eventErr" role="alert"></p>
+          </form>
+          <div class="card">
+            <h3>All events</h3>
+            <ul id="adminList" class="list"></ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
